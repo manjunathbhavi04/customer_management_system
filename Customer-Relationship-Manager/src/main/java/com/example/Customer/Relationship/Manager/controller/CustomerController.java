@@ -5,7 +5,6 @@ import com.example.Customer.Relationship.Manager.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -33,12 +32,12 @@ public class CustomerController {
     @PutMapping("/update")
     public ResponseEntity<Customer> updateCustomer(@RequestParam long customerId, @RequestBody Customer cust){
         Customer customer =  customerRepo.findById(customerId).orElseThrow(() -> new ResourceAccessException("Customer not found with Id: "+ customerId));
-        customer.setCustomerId(cust.getCustomerId());
         customer.setFirstName(cust.getFirstName());
         customer.setLastName(cust.getLastName());
         customer.setEmail(cust.getEmail());
 
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+        Customer updatedCustomer = customerRepo.save(customer);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
 
     }
 
