@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // primary key is auto increment
     private long customerId;
     private String firstName;
     private String lastName;
